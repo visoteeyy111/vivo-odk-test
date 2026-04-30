@@ -42,7 +42,7 @@
 
     <!-- http://aims.fao.org/aos/geopolitical.owl#sourceCreator -->
 
-    <owl:AnnotationProperty rdf:about="http://aims.fao.org/aos/geopolitical.owl#sourceCreator"/>
+    <owl:AnnotationProperty rdf:about="http://aims.fao.org/aos/geopolitical.owl#sourceCreator"/
     
 
 
