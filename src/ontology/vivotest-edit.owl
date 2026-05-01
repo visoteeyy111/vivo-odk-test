@@ -5135,7 +5135,7 @@ For example, A and B may be gene products and binding of B by A positively regul
         <geopolitical:sourceModified>2010-06-24</geopolitical:sourceModified>
         <dcterms:source>FAO terminology http://www.fao.org/termportal/en/</dcterms:source>
         <rdfs:label xml:lang="en">nationalityRU</rdfs:label>
-    </owl:DatatypeProperty>
+    </owl:DatatypeProperty
     
 
 
