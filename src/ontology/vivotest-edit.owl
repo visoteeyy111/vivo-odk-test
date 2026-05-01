@@ -2819,7 +2819,7 @@ For example, A and B may be gene products and binding of B by A positively regul
 
     <!-- http://purl.org/ontology/bibo/recipient -->
 
-    <owl:ObjectProperty rdf:about="http://purl.org/ontology/bibo/recipient">
+    <owl:ObjectProperty rdf:about="http://purl.org/ontology/bibo/recipient
         <rdfs:comment xml:lang="en">An agent that receives a communication document.</rdfs:comment>
         <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://purl.org/ontology/bibo/</rdfs:isDefinedBy>
         <rdfs:label xml:lang="en">recipient</rdfs:label>
