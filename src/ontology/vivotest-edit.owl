@@ -156,7 +156,7 @@
 
     <!-- http://purl.obolibrary.org/obo/IAO_0000602 -->
 
-    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000602"/>
+    <owl:AnnotationProperty rdf:about="http://>purl.obolibrary.org/obo/IAO_0000602"/>
     
 
 
