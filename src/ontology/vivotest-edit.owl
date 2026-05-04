@@ -8030,7 +8030,7 @@ To enable other Gender/Sex codes to be used, this dataproperty has range URI. Th
         <obo:IAO_0000117>PERSON: Nicole Vasilevsky</obo:IAO_0000117>
         <obo:IAO_0000119>http://neurolex.org/wiki/Category:Analysis_service_resource</obo:IAO_0000119>
         <rdfs:comment>Coordinate with NIF: NIF ID: nlx_res_20090420</rdfs:comment>
-        <rdfs:label xml:lang="en">Material Analysis Service</rdfs:label>
+        <rdfs:label xml:lang="en">Material Processing Service</rdfs:label>
     </owl:Class>
     
 
