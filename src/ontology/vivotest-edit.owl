@@ -3306,7 +3306,7 @@ For example, A and B may be gene products and binding of B by A positively regul
                 </owl:unionOf>
             </owl:Class>
         </rdfs:range>
-        <rdfs:label xml:lang="en">funding provided via</rdfs:label>
+        <rdfs:label xml:lang="en">translator</rdfs:label>
     </owl:ObjectProperty>
     
 
