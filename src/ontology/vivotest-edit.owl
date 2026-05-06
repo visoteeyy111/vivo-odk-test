@@ -404,7 +404,7 @@
 
     <!-- http://aims.fao.org/aos/geopolitical.owl#isAdministeredBy -->
 
-    <owl:ObjectProperty rdf:about="http://aims.fao.org/aos/geopolitical.owl#isAdministeredBy">
+    <owl:ObjectProperty rdf:about="http://aims.fao.org/aos/geopolitical.owl#isAdministeredBy
         <geopolitical:sourceCreator>United Nations cartographic maps</geopolitical:sourceCreator>
         <geopolitical:sourceIdentifier xml:lang="en">http://www.un.org/Depts/Cartographic/map/profile/world00.pdf</geopolitical:sourceIdentifier>
         <geopolitical:sourceModified>2010-05-01</geopolitical:sourceModified>
