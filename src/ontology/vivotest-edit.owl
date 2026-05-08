@@ -336,7 +336,7 @@
 
     <!-- http://www.w3.org/2001/XMLSchema#boolean -->
 
-    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#boolean"/
     
 
 
