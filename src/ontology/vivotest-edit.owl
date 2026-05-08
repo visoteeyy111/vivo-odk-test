@@ -643,7 +643,7 @@
         <obo:IAO_0000119>PERSON: Melissa Haendel</obo:IAO_0000119>
         <rdfs:comment>Here there are things to be fixed (for instance a service can use a technique...)</rdfs:comment>
         <rdfs:label xml:lang="en">uses</rdfs:label>
-    </owl:ObjectProperty>
+    
     
 
 
