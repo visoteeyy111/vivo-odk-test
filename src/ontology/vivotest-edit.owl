@@ -223,7 +223,7 @@
     <!-- http://purl.org/dc/terms/source -->
 
     <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/source">
-        <rdfs:label xml:lang="en">source</rdfs:label>
+        <rdfs:label>See http://example.org/myterm for details</rdfs:label>
     </owl:AnnotationProperty>
     
 
