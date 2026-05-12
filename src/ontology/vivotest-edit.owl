@@ -9010,7 +9010,7 @@ this case we explicitly refer to the singular form</obo:IAO_0000116>
     <!-- http://purl.obolibrary.org/obo/VIVOTEST_0000000 -->
 
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/VIVOTEST_0000000">
-        <rdfs:label xml:lang="en">root node</rdfs:label>
+        <rdfs:label>See http://example.org/myterm for details</rdfs:label>
     </owl:Class>
     
 
