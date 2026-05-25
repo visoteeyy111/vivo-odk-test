@@ -29,7 +29,7 @@ jobs:
           VVV_FILE=/tmp/vvv_output.txt
 
           cd src/ontology
-          make ROBOT_ENV='ROBOT_JAVA_ARGS=-Xmx6G' test IMP=false PAT=false MIR=false 2>&1 | tee "$LOG_FILE"
+          make ROBOT_ENV='ROBOT_JAVA_ARGS=-Xmx6G' test check-violations IMP=false PAT=false MIR=false 2>&1 | tee "$LOG_FILE"
           EXIT_CODE=${PIPESTATUS[0]}
 
           if [ $EXIT_CODE -ne 0 ]; then
@@ -181,3 +181,10 @@ jobs:
             /tmp/xmllint_output.txt
             /tmp/vvv_output.txt
           retention-days: 7
+      - name: Upload violation reports as artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: violation-reports
+          path: src/ontology/reports/*-violation.tsv
+          retention-days: 30
