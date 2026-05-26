@@ -757,7 +757,7 @@
         <obo:IAO_0000115>Instruments, techniques, reagents, organisms, or software that are referenced in a protocol.</obo:IAO_0000115>
         <obo:IAO_0000117>PERSON: Melissa Haendel</obo:IAO_0000117>
         <obo:IAO_0000119>PERSON: Melissa Haendel</obo:IAO_0000119>
-        <rdfs:label xml:lang="en">specifies the use of</rdfs:label>
+        <rdfs:label xml:lang="en">specifies the use of</rdfs:labe>
     </owl:ObjectProperty>
     
 
