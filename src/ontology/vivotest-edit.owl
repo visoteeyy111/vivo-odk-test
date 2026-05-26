@@ -4110,7 +4110,7 @@ For example, A and B may be gene products and binding of B by A positively regul
     <owl:ObjectProperty rdf:about="http://xmlns.com/foaf/0.1/mbox">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
         <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
-        <rdfs:label>personal mailbox</rdfs:label>
+        <rdfs:label>personal mailbox</rdfs:labe>
     </owl:ObjectProperty>
     
 
