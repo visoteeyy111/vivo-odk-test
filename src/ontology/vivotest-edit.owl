@@ -15035,7 +15035,7 @@ see: http://xmlns.com/foaf/spec/#term_Group</obo:IAO_0000112>
         <skos1:changeNote>
             <rdf:Description/>
         </skos1:changeNote>
-        <rdfs:label xml:lang="en">has top concept</rdfs:label>
+        <rdfs:label xml:lang="en">has a top concept</rdfs:label>
     </owl:NamedIndividual>
     
 
