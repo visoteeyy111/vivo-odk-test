@@ -23,9 +23,34 @@
      xmlns:study_protocol="http://purl.org/net/OCRe/study_protocol.owl#">
     <owl:Ontology rdf:about="http://purl.obolibrary.org/obo/vivotest.owl">
         <dcterms:description>None</dcterms:description>
-        <dcterms:license rdf:resource="https://creativecommons.org/licenses/unspecified"/>
+        <dcterms:license 
+    rdf:resource="https://creativecommons.org/licenses/unspecified"/>
         <dcterms:title>VIVO Test Ontology</dcterms:title>
-    </owl:Ontology>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/bibo_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/dcterms_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/doap_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/geopolitical_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/ns_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/ro_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/skos_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/skos2_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/statistics_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/study_protocol_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/vann_import.owl"/>
+        <owl:imports
+    rdf:resource="http://purl.obolibrary.org/obo/vivotest/imports/vitro_import.owl"/>
+</owl:Ontology>
     
 
 

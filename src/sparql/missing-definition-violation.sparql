@@ -1,0 +1,21 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX IAO: <http://purl.obolibrary.org/obo/IAO_>
+
+# Flag Classes, ObjectProperties and AnnotationProperties defined in the
+# vivotest edit file that are missing an IAO:0000115 definition.
+# Uses GRAPH <vivotest.owl> (consistent with missing-label and
+# duplicate-label) to avoid false positives from imported ontologies.
+
+SELECT ?entity ?label WHERE {
+  GRAPH <http://purl.obolibrary.org/obo/vivotest.owl> {
+    { ?entity a owl:Class }
+      UNION { ?entity a owl:ObjectProperty }
+      UNION { ?entity a owl:AnnotationProperty }
+  }
+  FILTER(isIRI(?entity))
+  FILTER(STRSTARTS(STR(?entity), "http://purl.obolibrary.org/obo/VIVOTEST_"))
+  OPTIONAL { ?entity rdfs:label ?label }
+  FILTER NOT EXISTS { ?entity IAO:0000115 ?def }
+}
+ORDER BY ?entity

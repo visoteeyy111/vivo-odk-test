@@ -12,6 +12,7 @@ WHERE
     ?pred = oboInOwl:hasNarrowSynonym ||
     ?pred = oboInOwl:hasBroadSynonym ||
     ?pred = oboInOwl:hasExactSynonym
+    ?pred = <http://purl.obolibrary.org/obo/IAO_0000118>
     )
 
     OPTIONAL {

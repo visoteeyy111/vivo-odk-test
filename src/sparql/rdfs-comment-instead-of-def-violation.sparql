@@ -1,0 +1,23 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Flag entities defined in the vivotest edit file that carry an
+# rdfs:comment — a signal that rdfs:comment is being used instead of
+# the proper IAO:0000115 definition annotation.
+#
+# Both the rdfs:comment triple AND the type triple are now checked
+# inside the same GRAPH block so the scope is fully consistent.
+# Without the GRAPH filter this query would match rdfs:comment
+# annotations from imported ontologies (ERO, bibo, BFO, etc.).
+
+SELECT ?entity ?comment WHERE {
+  GRAPH <http://purl.obolibrary.org/obo/vivotest.owl> {
+    ?entity rdfs:comment ?comment .
+    { ?entity a owl:Class }
+      UNION { ?entity a owl:ObjectProperty }
+      UNION { ?entity a owl:AnnotationProperty }
+  }
+  FILTER(isIRI(?entity))
+  FILTER(!STRSTARTS(STR(?entity), "http://www.w3.org/"))
+}
+ORDER BY ?entity

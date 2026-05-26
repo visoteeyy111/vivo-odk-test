@@ -1,0 +1,19 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Only flag entities that are declared in the vivotest edit file itself.
+# Without the GRAPH filter every imported term that lacks an rdfs:label
+# (hundreds of bare declarations from ERO, bibo, BFO, etc.) would be
+# reported as a violation.
+
+SELECT ?entity WHERE {
+  GRAPH <http://purl.obolibrary.org/obo/vivotest.owl> {
+    { ?entity a owl:Class } UNION { ?entity a owl:ObjectProperty }
+      UNION { ?entity a owl:AnnotationProperty }
+      UNION { ?entity a owl:DatatypeProperty }
+  }
+  FILTER(isIRI(?entity))
+  FILTER NOT EXISTS { ?entity rdfs:label ?label }
+  FILTER(!STRSTARTS(STR(?entity), "http://www.w3.org/"))
+}
+ORDER BY ?entity

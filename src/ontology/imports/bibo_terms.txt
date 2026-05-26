@@ -105,3 +105,4 @@ http://purl.org/ontology/bibo/translator
 http://purl.org/ontology/bibo/upc
 http://purl.org/ontology/bibo/uri
 http://purl.org/ontology/bibo/volume
+http://purl.org/ontology/bibo/Specification

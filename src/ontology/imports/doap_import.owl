@@ -7,8 +7,8 @@ Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
 
 
 Ontology(<http://purl.obolibrary.org/obo//vivotest/imports/doap_import.owl>
-<http://purl.obolibrary.org/obo//vivotest/releases/2026-04-21/imports/doap_import.owl>
-Annotation(owl:versionInfo "2026-04-21")
+<http://purl.obolibrary.org/obo//vivotest/releases/2026-05-12/imports/doap_import.owl>
+Annotation(owl:versionInfo "2026-05-12")
 
 Declaration(Class(<http://purl.org/dc/terms/Agent>))
 Declaration(Class(<http://schema.org/Person>))
@@ -57,7 +57,7 @@ AnnotationAssertion(rdfs:label <http://usefulinc.com/ns/doap#bug-database> "suiv
 #   Object Properties
 ############################
 
-# Object Property: <http://usefulinc.com/ns/doap#repository> (úložiště)
+# Object Property: <http://usefulinc.com/ns/doap#repository> (repositório)
 
 AnnotationAssertion(rdfs:comment <http://usefulinc.com/ns/doap#repository> "Dépôt du code source."@fr)
 AnnotationAssertion(rdfs:comment <http://usefulinc.com/ns/doap#repository> "Quellcode-Versionierungssystem."@de)
@@ -136,7 +136,7 @@ EquivalentClasses(<http://purl.org/dc/terms/Agent> <http://xmlns.com/foaf/0.1/Ag
 
 EquivalentClasses(<http://schema.org/Person> <http://xmlns.com/foaf/0.1/Person>)
 
-# Class: <http://usefulinc.com/ns/doap#Project> (Projekt)
+# Class: <http://usefulinc.com/ns/doap#Project> (Project)
 
 AnnotationAssertion(rdfs:comment <http://usefulinc.com/ns/doap#Project> "A project."@en)
 AnnotationAssertion(rdfs:comment <http://usefulinc.com/ns/doap#Project> "Ein Projekt."@de)

@@ -2,32 +2,191 @@
 
 name: CI
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "ontology_qc"
   ontology_qc:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container: obolibrary/odkfull:v1.6.1
+    permissions:
+      pull-requests: write
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
       - name: Run ontology QC checks
-        env:
-          DEFAULT_BRANCH: main
-        run: cd src/ontology && make ROBOT_ENV='ROBOT_JAVA_ARGS=-Xmx6G' test IMP=false PAT=false MIR=false
+        id: qc
+        shell: bash
+        run: |
+          set +e
+          LOG_FILE=/tmp/qc_output.txt
+          XML_FILE=/tmp/xmllint_output.txt
+          VVV_FILE=/tmp/vvv_output.txt
 
+          cd src/ontology
+          make ROBOT_ENV='ROBOT_JAVA_ARGS=-Xmx6G' test IMP=false PAT=false MIR=false 2>&1 | tee "$LOG_FILE"
+          EXIT_CODE=${PIPESTATUS[0]}
+
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "## Ontology QC Failed" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+
+            # SPARQL violations block 
+            SPARQL_BLOCK=$(grep -A 5 "FAIL Rule" "$LOG_FILE" || true)
+            if [ -n "$SPARQL_BLOCK" ]; then
+              echo "### SPARQL Violations" >> "$GITHUB_STEP_SUMMARY"
+              echo '```' >> "$GITHUB_STEP_SUMMARY"
+              echo "$SPARQL_BLOCK" >> "$GITHUB_STEP_SUMMARY"
+              echo '```' >> "$GITHUB_STEP_SUMMARY"
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+            fi
+
+            # Full Make output
+            echo "### Full Make / ROBOT Output" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            cat "$LOG_FILE" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+
+            echo "### XML parse check" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo "aW1wb3J0IHhtbC5ldHJlZS5FbGVtZW50VHJlZSBhcyBFVAp0cnk6CiAgICBFVC5wYXJzZSgidml2b3Rlc3QtZWRpdC5vd2wiKQogICAgcHJpbnQoIlhNTCBpcyB3ZWxsLWZvcm1lZCAtIGVycm9yIG1heSBiZSBzZW1hbnRpYyByYXRoZXIgdGhhbiBzeW50YWN0aWMuIikKZXhjZXB0IEVULlBhcnNlRXJyb3IgYXMgZToKICAgIGxpbmUsIGNvbCA9IGUucG9zaXRpb24KICAgIHByaW50KCJYTUwgcGFyc2UgZXJyb3IgYXQgbGluZSAiICsgc3RyKGxpbmUpICsgIiwgY29sdW1uICIgKyBzdHIoY29sKSArICI6IikKICAgIHByaW50KCIgICIgKyBzdHIoZSkpCg==" | base64 -d > /tmp/check_xml.py
+            python3 /tmp/check_xml.py 2>&1 | tee "$XML_FILE"
+            cat "$XML_FILE" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+
+            echo "### ROBOT RDF/XML detail" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            robot -vvv --catalog catalog-v001.xml convert \
+              --input vivotest-edit.owl \
+              --format ofn \
+              --output /tmp/preprocess-debug.owl > "$VVV_FILE" 2>&1 || true
+            grep -m1 "must not contain\|Expecting an object element\|line=.*column=" "$VVV_FILE" >> "$GITHUB_STEP_SUMMARY" || echo "(no RDF/XML parser details found)" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+
+            echo "qc_failed=true" >> $GITHUB_OUTPUT
+          else
+            echo "## Ontology QC Passed" >> "$GITHUB_STEP_SUMMARY"
+            echo "All checks passed successfully." >> "$GITHUB_STEP_SUMMARY"
+            echo "qc_failed=false" >> $GITHUB_OUTPUT
+          fi
+
+          exit $EXIT_CODE
+
+      - name: Post PR comment with error details
+        if: failure() && github.event_name == 'pull_request'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let fullLog = '';
+            let sparqlBlock = '';
+            try {
+              const raw = fs.readFileSync('/tmp/qc_output.txt', 'utf8');
+              const lines = raw.split('\n');
+              // Capture FAIL Rule blocks (line + next 5 lines)
+              let sparqlViolations = [];
+              lines.forEach((l, i) => {
+                if (l.includes('FAIL Rule')) {
+                  sparqlViolations.push(...lines.slice(i, i + 6));
+                  sparqlViolations.push('');
+                }
+              });
+              sparqlBlock = sparqlViolations.join('\n');
+              // Full log (no grep filtering — everything visible)
+              fullLog = raw;
+            } catch(e) {
+              fullLog = 'Could not read log.';
+            }
+            let xmlSnippet = '';
+            try {
+              xmlSnippet = fs.readFileSync('/tmp/xmllint_output.txt', 'utf8').trim();
+            } catch(e) {
+              xmlSnippet = 'XML parse output not available.';
+            }
+            let robotDetail = '';
+            try {
+              const vvv = fs.readFileSync('/tmp/vvv_output.txt', 'utf8');
+              const match = vvv.split('\n').find(function(l) {
+                return l.includes('must not contain') ||
+                       l.includes('Unresolved prefixed name') ||
+                       l.includes('QUERY PARSE ERROR');
+              });
+              robotDetail = match ? match.trim() : 'No RDF/XML attribute detail found.';
+            } catch(e) {
+              robotDetail = 'ROBOT detail not available.';
+            }
+            const body = [
+              '## Ontology QC Failed',
+              '',
+              'The ontology failed validation. Please fix `vivotest-edit.owl` before merging.',
+              '',
+              sparqlBlock ? '<details open>' : '<details>',
+              '<summary>SPARQL Violations</summary>',
+              '',
+              '```',
+              sparqlBlock || '(no SPARQL violations found)',
+              '```',
+              '',
+              '</details>',
+              '',
+              '<details open>',
+              '<summary>XML parse check</summary>',
+              '',
+              '```',
+              xmlSnippet,
+              '```',
+              '',
+              '</details>',
+              '',
+              '<details open>',
+              '<summary>ROBOT RDF/XML detail</summary>',
+              '',
+              '```',
+              robotDetail,
+              '```',
+              '',
+              '</details>',
+              '',
+              '<details>',
+              '<summary>Full Make / ROBOT output (click to expand)</summary>',
+              '',
+              '```',
+              fullLog,
+              '```',
+              '',
+              '</details>',
+              '',
+              '---',
+              '**Common causes of failures:**',
+              '- `QUERY PARSE ERROR` → missing PREFIX declaration in a SPARQL file',
+              '- `INVALID ONTOLOGY FILE ERROR` → broken XML in `vivotest-edit.owl`',
+              '- `missing closing /` → unescaped slash in a literal or IRI',
+              '',
+              '[ROBOT error docs](http://robot.obolibrary.org/errors)'
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
+            });
+
+      - name: Upload QC log as artifact
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qc-error-log
+          path: |
+            /tmp/qc_output.txt
+            /tmp/xmllint_output.txt
+            /tmp/vvv_output.txt
+          retention-days: 7

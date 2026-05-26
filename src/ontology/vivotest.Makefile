@@ -43,3 +43,34 @@ mirror-vitro: | $(TMPDIR)
 ## 
 ## If you need to customize your Makefile, make
 ## changes here rather than in the main Makefile
+
+VIOLATION_QUERIES = owldef-self-reference \
+                    iri-range \
+                    label-with-iri \
+                    multiple-replaced_by \
+                    dc-properties \
+                    missing-label \
+                    duplicate-label \
+                    missing-definition \
+                    deprecated-no-replacement \
+                    rdfs-comment-instead-of-def
+
+.PHONY: violation-reports
+violation-reports: $(patsubst %, $(REPORTDIR)/%-violation.tsv, $(VIOLATION_QUERIES))
+
+$(REPORTDIR)/%-violation.tsv: $(SPARQLDIR)/%-violation.sparql $(SRCMERGED) | $(REPORTDIR)
+	$(ROBOT) query --use-graphs true \
+	  --input $(SRCMERGED) \
+	  --query $< $@
+
+.PHONY: check-violations
+check-violations: violation-reports
+	@for f in $(patsubst %, $(REPORTDIR)/%-violation.tsv, $(VIOLATION_QUERIES)); do \
+	  COUNT=$$(tail -n +2 "$$f" | grep -c '.'); \
+	  if [ "$$COUNT" -gt 0 ]; then \
+	    echo "VIOLATION FOUND in $$f ($$COUNT row(s))"; \
+	    cat "$$f"; \
+	    exit 1; \
+	  fi; \
+	done
+	@echo "All violation checks passed."

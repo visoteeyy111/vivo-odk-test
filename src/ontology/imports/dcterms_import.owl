@@ -7,8 +7,8 @@ Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
 
 
 Ontology(<http://purl.obolibrary.org/obo//vivotest/imports/dcterms_import.owl>
-<http://purl.obolibrary.org/obo//vivotest/releases/2026-04-21/imports/dcterms_import.owl>
-Annotation(owl:versionInfo "2026-04-21")
+<http://purl.obolibrary.org/obo//vivotest/releases/2026-05-12/imports/dcterms_import.owl>
+Annotation(owl:versionInfo "2026-05-12")
 
 Declaration(Class(<http://www.w3.org/2006/vcard/ns#Addressing>))
 Declaration(Class(<http://www.w3.org/2006/vcard/ns#Calendar>))
