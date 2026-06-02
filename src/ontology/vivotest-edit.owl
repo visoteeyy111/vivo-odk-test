@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <rdf:RDF xmlns="http://purl.obolibrary.org/obo/vivotest.owl#"
      xml:base="http://purl.obolibrary.org/obo/vivotest.owl"
      xmlns:ns="http://www.w3.org/2003/06/sw-vocab-status/ns#"
@@ -2618,7 +2618,7 @@ For example, A and B may be gene products and binding of B by A positively regul
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002211"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0019000"/>
         </owl:propertyChainAxiom>
-        <obo:IAO_0000115>A relationship that holds between a process and a characteristic in which process (P) regulates characteristic (C) iff: P results in the existence of C OR affects the intensity or magnitude of C.</obo:IAO_0000115>
+        <obo:IAO_0000115>A relationship that holds between a process and a characteristic in which process (P) regulates characteristic (C) iff: P results in the existence of C OR affects the intensity or magnitude of C.</obo:IAO_0000115>
         <rdfs:label>regulates characteristic</rdfs:label>
     </owl:ObjectProperty>
     
@@ -2632,7 +2632,7 @@ For example, A and B may be gene products and binding of B by A positively regul
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002213"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0019001"/>
         </owl:propertyChainAxiom>
-        <obo:IAO_0000115>A relationship that holds between a process and a characteristic in which process (P) positively regulates characteristic (C) iff: P results in an increase in the intensity or magnitude of C.</obo:IAO_0000115>
+        <obo:IAO_0000115>A relationship that holds between a process and a characteristic in which process (P) positively regulates characteristic (C) iff: P results in an increase in the intensity or magnitude of C.</obo:IAO_0000115>
         <rdfs:label>positively regulates characteristic</rdfs:label>
     </owl:ObjectProperty>
     
@@ -2650,7 +2650,7 @@ For example, A and B may be gene products and binding of B by A positively regul
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0002213"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/RO_0019002"/>
         </owl:propertyChainAxiom>
-        <obo:IAO_0000115>A relationship that holds between a process and a characteristic in which process (P) negatively regulates characteristic (C) iff: P results in a decrease in the intensity or magnitude of C.</obo:IAO_0000115>
+        <obo:IAO_0000115>A relationship that holds between a process and a characteristic in which process (P) negatively regulates characteristic (C) iff: P results in a decrease in the intensity or magnitude of C.</obo:IAO_0000115>
         <rdfs:label>negatively regulates characteristic</rdfs:label>
     </owl:ObjectProperty>
     
