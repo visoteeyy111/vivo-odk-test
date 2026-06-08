@@ -7,8 +7,8 @@ Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
 
 
 Ontology(<http://purl.obolibrary.org/obo//vivotest/imports/ns_import.owl>
-<http://purl.obolibrary.org/obo//vivotest/releases/2026-05-12/imports/ns_import.owl>
-Annotation(owl:versionInfo "2026-05-12")
+<http://purl.obolibrary.org/obo//vivotest/releases/2026-06-08/imports/ns_import.owl>
+Annotation(owl:versionInfo "2026-06-08")
 
 Declaration(AnnotationProperty(<http://purl.org/vocab/vann/preferredNamespacePrefix>))
 Declaration(AnnotationProperty(<http://purl.org/vocab/vann/preferredNamespaceUri>))
