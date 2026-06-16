@@ -5210,6 +5210,14 @@ For example, A and B may be gene products and binding of B by A positively regul
     <owl:DatatypeProperty rdf:about="http://aims.fao.org/aos/geopolitical.owl#populationTotal">
         <rdfs:label xml:lang="en">total population</rdfs:label>
     </owl:DatatypeProperty>
+
+
+
+    <!-- http://aims.fao.org/aos/geopolitical.owl#populationTotal -->
+
+    <owl:DatatypeProperty rdf:about="http://aims.fao.org/aos/geopolitical.owl#populationTotal">
+        <rdfs:label xml:lang="en">total population</rdfs:label>
+    </owl:DatatypeProperty>
     
 
 
